@@ -1,0 +1,9 @@
+./vendor/bin/sail up -d
+./vendor/bin/sail artisan route:clear
+./vendor/bin/sail composer require laravel/ui
+./vendor/bin/sail artisan migrate:install
+./vendor/bin/sail artisan ui vue --auth
+./vendor/bin/sail composer require laravel-frontend-presets/argon
+./vendor/bin/sail artisan ui argon
+./vendor/bin/sail composer dump-autoload
+./vendor/bin/sail artisan migrate --seed
