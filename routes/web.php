@@ -28,10 +28,12 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
-	Route::get('upgrade', function () {return view('pages.upgrade');})->name('upgrade'); 
-	 Route::get('map', function () {return view('pages.maps');})->name('map');
-	 Route::get('icons', function () {return view('pages.icons');})->name('icons'); 
-	 Route::get('table-list', function () {return view('pages.tables');})->name('table');
+	Route::get('messages', function () {return view('pages.messages');})->name('messages');
+	Route::get('contact_submissions', function () {return view('pages.messages');})->name('contact_submissions');
+	Route::get('service_request', function () {return view('pages.messages');})->name('service_request');
+	Route::get('categories', function () {return view('pages.messages');})->name('categories');
+	Route::get('subcategories', function () {return view('pages.messages');})->name('subcategories');
+	Route::get('services', function () {return view('pages.messages');})->name('services');
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
 });
 

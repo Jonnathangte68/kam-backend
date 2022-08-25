@@ -1,5 +1,15 @@
 ./vendor/bin/sail up -d
+
+# Set up Environment variables
+cp .env.example .env
+
+# Install the system user
+./vendor/bin/sail artisan db:seed --class=UserSeeder
+
+# Clear path
 ./vendor/bin/sail artisan route:clear
+
+# If starting a new project
 ./vendor/bin/sail composer require laravel/ui
 ./vendor/bin/sail artisan migrate:install
 ./vendor/bin/sail artisan ui vue --auth

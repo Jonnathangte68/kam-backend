@@ -34,6 +34,14 @@
 </head>
 
 <body>
+
+@auth()
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+            @include('layouts.navbars.sidebar')
+        @endauth
+        
   <!-- Sidenav -->
   <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
     <div class="scrollbar-inner">
@@ -67,19 +75,19 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('service_request') }}">
-                      <i class="ni ni-app text-default"></i>
+                      <i class="ni ni-collection text-default"></i>
                       <span class="nav-link-text">Service Request</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('categories') }}">
-                      <i class="ni ni-collection text-default"></i>
+                      <i class="ni ni-tag text-default"></i>
                       <span class="nav-link-text">Categories</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('subcategories') }}">
-                      <i class="ni ni-tag text-default"></i>
+                      <i class="ni ni-app text-default"></i>
                       <span class="nav-link-text">Sub Categories</span>
                     </a>
                 </li>
@@ -320,7 +328,8 @@
                   <span>Support</span>
                 </a>
                 <div class="dropdown-divider"></div>
-                <a href="#!" class="dropdown-item">
+                <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
                   <i class="ni ni-user-run"></i>
                   <span>Logout</span>
                 </a>
@@ -361,7 +370,7 @@
           <div class="card">
             <!-- Card header -->
             <div class="card-header border-0">
-              <h3 class="mb-0">Light table</h3>
+              <h3 class="mb-0">Threads</h3>
             </div>
             <!-- Light table -->
             <div class="table-responsive">
@@ -1025,7 +1034,6 @@
           </div>
         </div>
       </div>
-      
     </div>
   </div>
   <!-- Argon Scripts -->
