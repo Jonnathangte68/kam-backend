@@ -1,3 +1,7 @@
+# sail
+docker-compose up -d --force-recreate --renew-anon-volumes
+
+# sail up
 ./vendor/bin/sail up -d
 
 # Set up Environment variables

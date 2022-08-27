@@ -47,8 +47,6 @@ services:
             - "5432"
         networks:
             - sail
-        
-            
     pgadmin:
         container_name: pgadmin_container
         image: dpage/pgadmin4
@@ -62,9 +60,17 @@ services:
             - "${PGADMIN_PORT:-5050}:8080"
         networks:
             - sail
-        
-            
         restart: unless-stopped
+    # appweb:
+    #     container_name: appweb
+    #     build: ./appweb
+    #     networks:
+    #         - sail
+    #     ports:
+    #         - "3000:80"
+    #     expose:
+    #         - "3000"
+    #     command: npm start
     meilisearch:
         image: 'getmeili/meilisearch:latest'
         ports:
@@ -73,8 +79,6 @@ services:
             - 'sail-meilisearch:/meili_data'
         networks:
             - sail
-        
-            
         healthcheck:
             test: ["CMD", "wget", "--no-verbose", "--spider",  "http://localhost:7700/health"]
             retries: 3
@@ -86,18 +90,16 @@ services:
             - '${FORWARD_MAILHOG_DASHBOARD_PORT:-8025}:8025'
         networks:
             - sail
-        
-            
     selenium:
         image: 'selenium/standalone-chrome'
         volumes:
             - '/dev/shm:/dev/shm'
         networks:
             - sail
-        
 networks:
     sail:
 volumes:
+    # appweb:
     postgres:
     pgadmin:
     sail-meilisearch:
