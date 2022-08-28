@@ -4,10 +4,18 @@ import CenterAligned from "../../components/CenterAligned";
 import CountryPicker from "../../components/CountryPicker";
 import { IoReorderThree } from "react-icons/io5";
 import COLORS from "../../utils/colors";
-import { useNavigate } from "react-router-dom";
 import RegularTextInput from "../../components/TextInput/RegularTextInput";
+import NavigationBar from "../../components/NavigationBar";
+import { useState } from "react";
+import ChatDialog from "../../components/ChatDialog";
 
 const AboutUsScreen = () => {
+    const [isChatDialogVisible, setIsChatDialogVisible] = useState(false);
+    
+    const handleToggleLiveChat = () => {
+        setIsChatDialogVisible(!isChatDialogVisible);
+    };
+    
     const handleFormSubmit = () => {
         // Send request save feedback
     };
@@ -23,17 +31,13 @@ const AboutUsScreen = () => {
                     </CenterAligned>
                         <img src="/assets/img/Logo/header-logo.png" alt="kam logo"/>
                     <CenterAligned>
-                        <CountryPicker className={css`width: 19.45vh; height: 4.25vh; padding-top: 0.1vh; padding-bottom: 0.1vh;`} />
+                        <CountryPicker className={css`border-color: black; width: 19.45vh; height: 4.25vh; padding-top: 0.1vh; padding-bottom: 0.1vh; margin-left: -7.655vh; -webkit-box-shadow: 5px 5px 15px -9px #000000; box-shadow: 5px 5px 15px -9px #000000;`} />
                     </CenterAligned>
                 </div>
             </MDBCol>
 
             {/* NAV OPTIONS */}
-            <MDBCol md="12" className={css`height: 21%; padding: 0 !important; background-color: ${COLORS.BLACK_4};`}>
-                <div>
-                    TODO ADD MENU ELEMENTS (CHECK FONT & WEIGHT)
-                </div>
-            </MDBCol>
+            <NavigationBar />
 
             {/* BANNER CONTACT US PHONE NUMBER */}
             <MDBCol md="12" className={css`padding: 0px !important;`}>
@@ -82,6 +86,15 @@ const AboutUsScreen = () => {
                     className={css`width: 100%; object-fit: cover;`}
                 />
             </MDBCol>
+
+            {/* OPEN LIVE CHAT */}
+            <img
+                className={css`width: 19vh; height: 9vh; position: fixed; top: 69%; right: 2vh;`}
+                alt="open live chat dialog"
+                src="/assets/img/live-chat.png"
+                onClick={handleToggleLiveChat}
+            />
+            <ChatDialog visible={isChatDialogVisible} onClose={() => setIsChatDialogVisible(false)} />
 
             {/* FOOTER */}
             <MDBCol md="12" className={css`height: 12vh; padding: 0 !important;`}>

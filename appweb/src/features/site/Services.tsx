@@ -5,9 +5,17 @@ import CountryPicker from "../../components/CountryPicker";
 import { IoReorderThree } from "react-icons/io5";
 import COLORS from "../../utils/colors";
 import { useNavigate } from "react-router-dom";
+import NavigationBar from "../../components/NavigationBar";
+import { useState } from "react";
+import ChatDialog from "../../components/ChatDialog";
 
 const ServicesScreen = () => {
     const navigate = useNavigate();
+    const [isChatDialogVisible, setIsChatDialogVisible] = useState(false);
+    
+    const handleToggleLiveChat = () => {
+        setIsChatDialogVisible(!isChatDialogVisible);
+    };
 
     const handleNewServiceRequest = () => {
         navigate("/service-request", { replace: false });
@@ -54,11 +62,7 @@ const ServicesScreen = () => {
             </MDBCol>
 
             {/* NAV OPTIONS */}
-            <MDBCol md="12" className={css`height: 21%; padding: 0 !important; background-color: ${COLORS.BLACK_4};`}>
-                <div>
-                    TODO ADD MENU ELEMENTS (CHECK FONT & WEIGHT)
-                </div>
-            </MDBCol>
+            <NavigationBar />
 
             {/* BANNER CONTACT US PHONE NUMBER */}
             <MDBCol md="12" className={css`padding: 0px !important;`}>
@@ -87,6 +91,15 @@ const ServicesScreen = () => {
                     className={css`width: 100%; object-fit: cover;`}
                 />
             </MDBCol>
+
+            {/* OPEN LIVE CHAT */}
+            <img
+                className={css`width: 19vh; height: 9vh; position: fixed; top: 69%; right: 2vh;`}
+                alt="open live chat dialog"
+                src="/assets/img/live-chat.png"
+                onClick={handleToggleLiveChat}
+            />
+            <ChatDialog visible={isChatDialogVisible} onClose={() => setIsChatDialogVisible(false)} />
 
             {/* FOOTER */}
             <MDBCol md="12" className={css`height: 12vh; padding: 0 !important;`}>

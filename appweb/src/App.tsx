@@ -11,6 +11,7 @@ import Categories from "./features/site/Categories";
 import Services from "./features/site/Services";
 import ServiceRequest from "./features/site/ServiceRequest";
 import ThankYou from "./features/site/ThankYou";
+import "@fontsource/lexend-deca"; // Defaults to weight 400.
 
 export default function App() {
   return (

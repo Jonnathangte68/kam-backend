@@ -20,7 +20,9 @@ enum COLORS {
     GRAY_3="rgba(0, 0, 0, 0.47)",
     PURPLE="#5222D0",
     SECONDARY_COLOR="rgba(210, 210, 210, 1)",
-    GRAY_BACKGROUND="rgb(241, 241, 241)"
+    GRAY_BACKGROUND="rgb(241, 241, 241)",
+    CHAT_REPLY="#FAEAB4",
+    GRAY_SLIGHT="#DCE3EA",
 }
   
 export default COLORS;
