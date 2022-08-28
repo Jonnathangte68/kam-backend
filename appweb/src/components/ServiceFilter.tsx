@@ -1,5 +1,4 @@
 import { css } from "@emotion/css";
-import { MDBCol, MDBRow } from "mdbreact";
 import COLORS from "../utils/colors";
 import InputSearch from "./InputSearch/InputSearch";
 

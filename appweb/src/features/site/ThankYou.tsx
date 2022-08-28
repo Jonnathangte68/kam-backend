@@ -6,13 +6,19 @@ import { IoReorderThree } from "react-icons/io5";
 import COLORS from "../../utils/colors";
 import { useNavigate } from "react-router-dom";
 import NavigationBar from "../../components/NavigationBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ChatDialog from "../../components/ChatDialog";
+import ServiceFilter from "../../components/ServiceFilter";
+import { useAppSelector } from "../../app/hooks";
+import _ from "lodash";
 
 const ThankYouScreen = () => {
     const navigate = useNavigate();
 
     const [isChatDialogVisible, setIsChatDialogVisible] = useState(false);
+    const categories = useAppSelector((state) => state.site.categories);
+    const mixedCategories = _.sampleSize(categories, 3);
+    const [isServiceSidebarVisible, setIsServiceSidebarVisible] = useState(false);
     
     const handleToggleLiveChat = () => {
         setIsChatDialogVisible(!isChatDialogVisible);
@@ -22,28 +28,32 @@ const ThankYouScreen = () => {
         navigate("/catalogue", { replace: false });
     };
 
+    const handleOpenService = (service_id) => {
+        navigate(`/services/${service_id}`, { replace: true });
+    };
+
     const renderServices = () => (
         <MDBRow className={css`text-align: center;`}>
             <MDBCol md="2"/>
 
-            <MDBCol md="2" className={css`background-color: blue; border: 1px solid black; border-radius: 10vh; padding-top: 7.75%; padding-bottom: 4%;`}>
-                <p className={css`font-family: 'Lexend Deca', sans-serif; font-wight: 700; font-size: 2.66rem; color: ${COLORS.WHITE_1}; text-shadow: 1px 1px ${COLORS.BLACK_1};`}>Test</p>
-                <button className={css`border-width: 0.281vh; border-color: ${COLORS.WHITE_1}; color: ${COLORS.WHITE_1}; border-radius: 10vh; border-style: solid; padding: 0.66vh 1.77vh 0.66vh 1.77vh; background-color: transparent; `}>SEE MORE</button>
-            </MDBCol>
+            {!!(mixedCategories && mixedCategories[0]) && (<MDBCol md="2" className={css`background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url("${mixedCategories[0]?.image}"); border: 1px solid black; border-radius: 10vh; padding-top: 7.75%; padding-bottom: 4%;`}>
+                <p className={css`font-family: 'Lexend Deca', sans-serif; font-wight: 700; font-size: 2.66rem; color: ${COLORS.WHITE_1}; text-shadow: 1px 1px ${COLORS.BLACK_1};`}>{mixedCategories[0]?.title}</p>
+                <button onClick={() => handleOpenService(mixedCategories[0]?.id)} className={css`border-width: 0.281vh; border-color: ${COLORS.WHITE_1}; color: ${COLORS.WHITE_1}; border-radius: 10vh; border-style: solid; padding: 0.66vh 1.77vh 0.66vh 1.77vh; background-color: transparent; `}>SEE MORE</button>
+            </MDBCol>)}
 
             <MDBCol md="1"/>
 
-            <MDBCol md="2" className={css`background-color: blue; border: 1px solid black; border-radius: 10vh; padding-top: 7.75%; padding-bottom: 4%;`}>
-                <p className={css`font-family: 'Lexend Deca', sans-serif; font-wight: 700; font-size: 2.66rem; color: ${COLORS.WHITE_1}; text-shadow: 1px 1px ${COLORS.BLACK_1};`}>Test</p>
-                <button className={css`border-width: 0.281vh; border-color: ${COLORS.WHITE_1}; color: ${COLORS.WHITE_1}; border-radius: 10vh; border-style: solid; padding: 0.66vh 1.77vh 0.66vh 1.77vh; background-color: transparent; `}>SEE MORE</button>
-            </MDBCol>
+            {!!(mixedCategories && mixedCategories[1]) && (<MDBCol md="2" className={css`background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url("${mixedCategories[1]?.image}"); border: 1px solid black; border-radius: 10vh; padding-top: 7.75%; padding-bottom: 4%;`}>
+                <p className={css`font-family: 'Lexend Deca', sans-serif; font-wight: 700; font-size: 2.66rem; color: ${COLORS.WHITE_1}; text-shadow: 1px 1px ${COLORS.BLACK_1};`}>{mixedCategories[1]?.title}</p>
+                <button onClick={() => handleOpenService(mixedCategories[0]?.id)} className={css`border-width: 0.281vh; border-color: ${COLORS.WHITE_1}; color: ${COLORS.WHITE_1}; border-radius: 10vh; border-style: solid; padding: 0.66vh 1.77vh 0.66vh 1.77vh; background-color: transparent; `}>SEE MORE</button>
+            </MDBCol>)}
 
             <MDBCol md="1"/>
             
-            <MDBCol md="2" className={css`background-color: blue; border: 1px solid black; border-radius: 10vh; padding-top: 7.75%; padding-bottom: 4%;`}>
-                <p className={css`font-family: 'Lexend Deca', sans-serif; font-wight: 700; font-size: 2.66rem; color: ${COLORS.WHITE_1}; text-shadow: 1px 1px ${COLORS.BLACK_1};`}>Test</p>
-                <button className={css`border-width: 0.281vh; border-color: ${COLORS.WHITE_1}; color: ${COLORS.WHITE_1}; border-radius: 10vh; border-style: solid; padding: 0.66vh 1.77vh 0.66vh 1.77vh; background-color: transparent; `}>SEE MORE</button>
-            </MDBCol>
+            {!!(mixedCategories && mixedCategories[2]) && (<MDBCol md="2" className={css`background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url("${mixedCategories[2]?.image}"); border: 1px solid black; border-radius: 10vh; padding-top: 7.75%; padding-bottom: 4%;`}>
+                <p className={css`font-family: 'Lexend Deca', sans-serif; font-wight: 700; font-size: 2.66rem; color: ${COLORS.WHITE_1}; text-shadow: 1px 1px ${COLORS.BLACK_1};`}>{mixedCategories[2]?.title}</p>
+                <button onClick={() => handleOpenService(mixedCategories[0]?.id)} className={css`border-width: 0.281vh; border-color: ${COLORS.WHITE_1}; color: ${COLORS.WHITE_1}; border-radius: 10vh; border-style: solid; padding: 0.66vh 1.77vh 0.66vh 1.77vh; background-color: transparent; `}>SEE MORE</button>
+            </MDBCol>)}
         </MDBRow>
     );
 
@@ -54,7 +64,7 @@ const ThankYouScreen = () => {
             <MDBCol md="12" className={css`height: 12vh; padding: 0 !important;`}>
                 <div className={css`display: flex; justify-content: space-between; background-color: ${COLORS.WHITE_1}; width: 100%; height: 100%;`}>
                     <CenterAligned>
-                        <IoReorderThree className={css`width: 7vh; height: 7vh; margin-left: 10vh;`} />
+                        <IoReorderThree onClick={() => setIsServiceSidebarVisible(true)} className={css`width: 7vh; height: 7vh; margin-left: 10vh;`} />
                     </CenterAligned>
                         <img src="/assets/img/Logo/header-logo.png" alt="kam logo"/>
                     <CenterAligned>
@@ -114,6 +124,9 @@ const ThankYouScreen = () => {
                 onClick={handleToggleLiveChat}
             />
             <ChatDialog visible={isChatDialogVisible} onClose={() => setIsChatDialogVisible(false)} />
+
+            {/* SERVICE FILTER SIDEBAR */}
+            <ServiceFilter visible={isServiceSidebarVisible} onClose={() => setIsServiceSidebarVisible(false)} />
 
             {/* FOOTER */}
             <MDBCol md="12" className={css`height: 12vh; padding: 0 !important;`}>

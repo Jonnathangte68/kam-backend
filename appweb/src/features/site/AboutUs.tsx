@@ -8,9 +8,18 @@ import RegularTextInput from "../../components/TextInput/RegularTextInput";
 import NavigationBar from "../../components/NavigationBar";
 import { useState } from "react";
 import ChatDialog from "../../components/ChatDialog";
+import { saveNewFeedback } from "./siteSlice";
+import ServiceFilter from "../../components/ServiceFilter";
+import { useAppDispatch } from "../../app/hooks";
 
 const AboutUsScreen = () => {
+    const dispatch = useAppDispatch();
+    
     const [isChatDialogVisible, setIsChatDialogVisible] = useState(false);
+    const [name, setName] = useState();
+    const [message, setMessage] = useState();
+    const [displayfsavedfeedbackmessage, setdisplayfsavedfeedbackmessage] = useState(false);
+    const [isServiceSidebarVisible, setIsServiceSidebarVisible] = useState(false);
     
     const handleToggleLiveChat = () => {
         setIsChatDialogVisible(!isChatDialogVisible);
@@ -18,6 +27,14 @@ const AboutUsScreen = () => {
     
     const handleFormSubmit = () => {
         // Send request save feedback
+        dispatch(saveNewFeedback({
+            name: name,
+            message: message
+        }));
+        setdisplayfsavedfeedbackmessage(true);
+        setTimeout(() => {
+            setdisplayfsavedfeedbackmessage(false);
+        }, 3500);
     };
 
     return (
@@ -27,7 +44,7 @@ const AboutUsScreen = () => {
             <MDBCol md="12" className={css`height: 12vh; padding: 0 !important;`}>
                 <div className={css`display: flex; justify-content: space-between; background-color: ${COLORS.WHITE_1}; width: 100%; height: 100%;`}>
                     <CenterAligned>
-                        <IoReorderThree className={css`width: 7vh; height: 7vh; margin-left: 10vh;`} />
+                        <IoReorderThree onClick={() => setIsServiceSidebarVisible(true)} className={css`width: 7vh; height: 7vh; margin-left: 10vh;`} />
                     </CenterAligned>
                         <img src="/assets/img/Logo/header-logo.png" alt="kam logo"/>
                     <CenterAligned>
@@ -52,12 +69,15 @@ const AboutUsScreen = () => {
             <MDBCol md="12" className={css`padding: 0 !important;`}>
                 <img className={css`width: 100%;`} alt="tell our story kam" src="/assets/img/our-story-big-slogan.png" />
                 <div className={css`position: relative; margin-top: -50.51vh; margin-bottom: 25vh; left: 20%; right: 20%; width: 60%; background-color: transparent;`}>
+                    {!!displayfsavedfeedbackmessage && (
+                        <p className={css`font-size: 1.55rem; text-align: center; font-family: 'Lexend Deca', sans-serif; border-radius: 15px 30px 30px 5px; padding: 2.55vh; min-height: 5vh; width: 100%; background-color: ${COLORS.WHITE_2};`}>Thank you! We have received your feedback!</p>
+                    )}
                     <RegularTextInput
                         name="ogabsdggnosdio2"
                         title=""
                         placeholder="Name"
-                        // value={instructor1}
-                        // onChange={(value => setInstructor1(value))}
+                        value={name}
+                        onChange={(value => setName(value))}
                     />
                     <br/>  
                     <RegularTextInput
@@ -65,8 +85,8 @@ const AboutUsScreen = () => {
                         title=""
                         placeholder="Feedback"
                         isTextAreaField={true}
-                        // value={instructor1}
-                        // onChange={(value => setInstructor1(value))}
+                        value={message}
+                        onChange={(value => setMessage(value))}
                     />
                     <br/>  
                     <button
@@ -95,6 +115,9 @@ const AboutUsScreen = () => {
                 onClick={handleToggleLiveChat}
             />
             <ChatDialog visible={isChatDialogVisible} onClose={() => setIsChatDialogVisible(false)} />
+
+            {/* SERVICE FILTER SIDEBAR */}
+            <ServiceFilter visible={isServiceSidebarVisible} onClose={() => setIsServiceSidebarVisible(false)} />
 
             {/* FOOTER */}
             <MDBCol md="12" className={css`height: 12vh; padding: 0 !important;`}>

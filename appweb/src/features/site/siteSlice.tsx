@@ -3,8 +3,17 @@ import { CombinedState, createAsyncThunk, createSlice, PayloadAction } from '@re
 import axios from 'axios';
 import _ from 'lodash';
 import { RootState } from '../../app/store';
+import { SERVER_BASE_API } from '../../utils/global';
 
 export interface DemoState {
+    isFetchingCategories: 'idle' | 'success' | 'error';
+    categories: Array<any>;
+    isFetchingCategoriesError?: string;
+
+    isFetchingServices: 'idle' | 'success' | 'error';
+    services: Array<any>;
+    isFetchingServicesError?: string;
+
     /*
     // Data Sources
     users: any;
@@ -64,6 +73,12 @@ export interface DemoState {
 }
 
 const initialState: DemoState = {
+    isFetchingCategories: 'idle',
+    categories: [],
+
+    isFetchingServices: 'idle',
+    services: []
+
     /*
     users: [],
     owners: [],
@@ -107,32 +122,96 @@ const initialState: DemoState = {
 };
 
 
-export const test = createAsyncThunk(
-  '/api/admin/vehicles',
-  async (newVehicle: any, { rejectWithValue, getState }) => {
-    // try {
-    //   const vehicleForm = {
-    //     v_model: newVehicle?.model,
-    //     v_type: newVehicle?.vehicle_type,
-    //     vin: newVehicle?.vin,
-    //     license_plate_id: newVehicle?.plate,
-    //     color: newVehicle?.color,
-    //     odo_meter: newVehicle?.odometer,
-    //     service_date: newVehicle?.service_date,
-    //     insurance_due_date: newVehicle?.insurance_date,
-    //     oil_change_date: newVehicle?.oil_change_due_date,
-    //     inspection_date: newVehicle?.inspection_due_date,
-    //     tire_rotation_date: newVehicle?.tire_rotation_due_date,
-    //     photo: newVehicle?.photo,
-    //     location: 1
-    //   };
-    //   const addStaffAxiosInstance = axios.create();
-    //   const resp = await addStaffAxiosInstance.post(`${SERVER_BASE_API}/admin/vehicles`, vehicleForm);
-    //   return resp.data;
-    // } catch (err) {
-    //     const message = (err as any).response?.data?.message;
-    //     return rejectWithValue(message);
-    // }
+export const fetchAllCategories = createAsyncThunk(
+  '/api/categories',
+  async (undefined, { rejectWithValue, getState }) => {
+    console.log("fetching categories");
+    try {
+      const requestor = axios.create();
+      const resp = await requestor.get(`${SERVER_BASE_API}/categories`);
+      return resp.data;
+    } catch (err) {
+        const message = (err as any).response?.data?.message;
+        return rejectWithValue(message);
+    }
+  }
+);
+
+export const fetchServicesByCategory = createAsyncThunk(
+  '/api/services/category_id',
+  async (category_id: number, { rejectWithValue, getState }) => {
+    console.log("fetching services by category");
+    try {
+      const requestor = axios.create();
+      const resp = await requestor.get(`${SERVER_BASE_API}/services/${category_id}`);
+      return resp.data;
+    } catch (err) {
+        const message = (err as any).response?.data?.message;
+        return rejectWithValue(message);
+    }
+  }
+);
+
+export const saveNewServiceRequest = createAsyncThunk(
+  '/api/services-request/save',
+  async (form_data: any, { rejectWithValue, getState }) => {
+    console.log("saving new service request");
+    try {
+      console.log("form", form_data);
+      const requestor = axios.create();
+      const resp = await requestor.post(`${SERVER_BASE_API}/services-request/save`, {
+        phone: form_data?.phone_number,
+        date: form_data?.date,
+        time: form_data?.time,
+        first_name: form_data?.first_name,
+        last_name: form_data?.last_name,
+        customer_phone: form_data?.telephone,
+        email: form_data?.email,
+        street_address: form_data?.street,
+        apartment_no: form_data?.apartment_no,
+        city: form_data?.city,
+        message: form_data?.message,
+      });
+      return resp.data;
+    } catch (err) {
+        const message = (err as any).response?.data?.message;
+        return rejectWithValue(message);
+    }
+  }
+);
+
+export const saveNewFeedback = createAsyncThunk(
+  '/feedback/save',
+  async (form_data: any, { rejectWithValue, getState }) => {
+    console.log("saving new feedback");
+    try {
+      console.log("form", form_data);
+      const requestor = axios.create();
+      const resp = await requestor.post(`${SERVER_BASE_API}/feedback/save`, {
+        name: form_data?.name,
+        message: form_data?.message,
+      });
+      return resp.data;
+    } catch (err) {
+        const message = (err as any).response?.data?.message;
+        return rejectWithValue(message);
+    }
+  }
+);
+
+export const saveNewContactSubmission = createAsyncThunk(
+  '/contact-submission/save',
+  async (form_data: any, { rejectWithValue, getState }) => {
+    console.log("saving new contact submission");
+    try {
+      console.log("form", form_data);
+      const requestor = axios.create();
+      const resp = await requestor.post(`${SERVER_BASE_API}/contact-submission/save`, form_data);
+      return resp.data;
+    } catch (err) {
+        const message = (err as any).response?.data?.message;
+        return rejectWithValue(message);
+    }
   }
 );
 
@@ -146,20 +225,35 @@ export const siteSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-    .addCase(test.pending, (state) => {
-    //   state.isFetchingVehicle = 'idle';
-    //   console.log("sending the request to /api/owner/vehicles pending");
+    .addCase(fetchAllCategories.pending, (state) => {
+      state.isFetchingCategories = 'idle';
     })
-    .addCase(test.fulfilled, (state, action) => {
-    //   state.isFetchingVehicle = 'success';
-    //   console.log("sending the request completed to /api/owner/vehicles pending");
-    //   console.log("result ", action.payload);
+    .addCase(fetchAllCategories.fulfilled, (state, action) => {
+      state.isFetchingCategories = 'success';
+      state.categories = action.payload;
     })
-    .addCase(test.rejected, (state, action) => {
-    //   state.isFetchingVehicle = 'error';
-    //   state.isFetchingVehicleError = JSON.stringify(action.payload);
-    //   console.log("sending the request error to /api/owner/vehicles pending");
-    //   console.log("result ", action.payload);
+    .addCase(fetchAllCategories.rejected, (state, action) => {
+      state.isFetchingCategories = 'error';
+      state.isFetchingCategoriesError = JSON.stringify(action.payload);
+    })
+    .addCase(fetchServicesByCategory.pending, (state) => {
+      state.isFetchingServices = 'idle';
+    })
+    .addCase(fetchServicesByCategory.fulfilled, (state, action) => {
+      state.isFetchingServices = 'success';
+
+      const result = [];
+
+      action.payload.map(im => {
+        result.push(im?.subcategory);
+        im?.services?.map(service => result.push(service));
+      });
+
+      state.services = _.uniqBy(result, 'id');
+    })
+    .addCase(fetchServicesByCategory.rejected, (state, action) => {
+      state.isFetchingServices = 'error';
+      state.isFetchingServicesError = JSON.stringify(action.payload);
     })
   },
 });

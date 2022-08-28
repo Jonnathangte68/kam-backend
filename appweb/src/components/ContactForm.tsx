@@ -1,13 +1,37 @@
 import { css } from "@emotion/css";
 import { MDBCol, MDBRow } from "mdbreact";
+import { useState } from "react";
 import COLORS from "../utils/colors";
 import Checkbox from "./Checkbox";
 import RegularTextInput from "./TextInput/RegularTextInput";
 
 const ContactForm = (props: any) => {
+    const [phone, setphone] = useState();
+    const [date, setdate] = useState();
+    const [time, settime] = useState();
+    const [first_name, setfirstname] = useState();
+    const [last_name, setlastname] = useState();
+    const [telephone, settelephone] = useState();
+    const [email, setemail] = useState();
+    const [street_address, setstreet_address] = useState();
+    const [apartment_no, setapartment_no] = useState();
+    const [city, setcity] = useState();
+    const [message, setmessage] = useState();
 
     const handleFormSubmit = () => {
-        props?.onSubmit();
+        props?.onSubmit({
+            phone_number: phone,
+            date: date,
+            time: time,
+            first_name: first_name,
+            last_name: last_name,
+            telephone: telephone,
+            email: email,
+            street: street_address,
+            apartment_no: apartment_no,
+            city: city,
+            message: message
+        });
     };
 
     return (
@@ -21,8 +45,8 @@ const ContactForm = (props: any) => {
                     name="xs3"
                     title=""
                     placeholder="Telephone number"
-                    // value={instructor1}
-                    // onChange={(value => setInstructor1(value))}
+                    value={phone}
+                    onChange={(value => setphone(value))}
                 />
             </MDBCol>
 
@@ -36,8 +60,8 @@ const ContactForm = (props: any) => {
                             name="xs3"
                             title=""
                             placeholder="Date"
-                            // value={instructor1}
-                            // onChange={(value => setInstructor1(value))}
+                            value={date}
+                            onChange={(value => setdate(value))}
                         />
                     </MDBCol>
                     <MDBCol md="6">
@@ -46,8 +70,8 @@ const ContactForm = (props: any) => {
                             name="xs3"
                             title=""
                             placeholder="Time"
-                            // value={instructor1}
-                            // onChange={(value => setInstructor1(value))}
+                            value={time}
+                            onChange={(value => settime(value))}
                         />
                     </MDBCol>
                 </MDBRow>
@@ -80,8 +104,8 @@ const ContactForm = (props: any) => {
                             name="xs3"
                             title=""
                             placeholder="First name"
-                            // value={instructor1}
-                            // onChange={(value => setInstructor1(value))}
+                            value={first_name}
+                            onChange={(value => setfirstname(value))}
                         />
                     </MDBCol>
                     <MDBCol md="6">
@@ -90,8 +114,8 @@ const ContactForm = (props: any) => {
                             name="xs3"
                             title=""
                             placeholder="Last name"
-                            // value={instructor1}
-                            // onChange={(value => setInstructor1(value))}
+                            value={last_name}
+                            onChange={(value => setlastname(value))}
                         />
                     </MDBCol>
                 </MDBRow>
@@ -102,8 +126,8 @@ const ContactForm = (props: any) => {
                             name="xs3"
                             title=""
                             placeholder="Telephone number"
-                            // value={instructor1}
-                            // onChange={(value => setInstructor1(value))}
+                            value={telephone}
+                            onChange={(value => settelephone(value))}
                         />
                     </MDBCol>
                     <MDBCol md="6">
@@ -112,8 +136,8 @@ const ContactForm = (props: any) => {
                             name="xs3"
                             title=""
                             placeholder="E-mail"
-                            // value={instructor1}
-                            // onChange={(value => setInstructor1(value))}
+                            value={email}
+                            onChange={(value => setemail(value))}
                         />
                     </MDBCol>
                 </MDBRow>
@@ -124,8 +148,8 @@ const ContactForm = (props: any) => {
                             name="xs3"
                             title=""
                             placeholder="Street address"
-                            // value={instructor1}
-                            // onChange={(value => setInstructor1(value))}
+                            value={street_address}
+                            onChange={(value => setstreet_address(value))}
                         />
                     </MDBCol>
                     <MDBCol md="6">
@@ -134,8 +158,8 @@ const ContactForm = (props: any) => {
                             name="xs3"
                             title=""
                             placeholder="Apartment number"
-                            // value={instructor1}
-                            // onChange={(value => setInstructor1(value))}
+                            value={apartment_no}
+                            onChange={(value => setapartment_no(value))}
                         />
                     </MDBCol>
                 </MDBRow>
@@ -146,8 +170,8 @@ const ContactForm = (props: any) => {
                             name="xs3"
                             title=""
                             placeholder="City"
-                            // value={instructor1}
-                            // onChange={(value => setInstructor1(value))}
+                            value={city}
+                            onChange={(value => setcity(value))}
                         />
                     </MDBCol>
                 </MDBRow>
@@ -162,8 +186,8 @@ const ContactForm = (props: any) => {
                     title=""
                     placeholder="Message the service provider"
                     isTextAreaField={true}
-                    // value={instructor1}
-                    // onChange={(value => setInstructor1(value))}
+                    value={message}
+                    onChange={(value => setmessage(value))}
                 />
             </MDBCol>
 

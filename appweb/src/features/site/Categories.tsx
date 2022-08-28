@@ -8,31 +8,38 @@ import { useNavigate } from "react-router-dom";
 import NavigationBar from "../../components/NavigationBar";
 import { useState } from "react";
 import ChatDialog from "../../components/ChatDialog";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import ServiceFilter from "../../components/ServiceFilter";
+import { fetchServicesByCategory } from "./siteSlice";
 
 const CategoriesScreen = () => {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
     const [isChatDialogVisible, setIsChatDialogVisible] = useState(false);
+    const [isServiceSidebarVisible, setIsServiceSidebarVisible] = useState(false);
+    const categories = useAppSelector((state) => state.site.categories);
     
     const handleToggleLiveChat = () => {
         setIsChatDialogVisible(!isChatDialogVisible);
     };
 
-    const handleServiceSelection = () => {
-        navigate("/services", { replace: false });
+    const handleServiceSelection = (category_id) => {
+        // dispatch(fetchServicesByCategory(category_id))
+        navigate(`/services/${category_id}`, { replace: false });
     };
 
     const renderServices = () => (
         <MDBRow className={css`text-align: center;`}>
-            {[1,2,3,4,5,6,7,8,9, "A"].map(
+            {categories.map(
                 (category, divIndex) => {
 
                     if ((divIndex % 3) === 0) {
                         return (
                             <>
                                 <MDBCol md="2"/>
-                                <MDBCol md="2" className={css`background-color: blue; border: 1px solid black; border-radius: 10vh; padding-top: 7.75%; padding-bottom: 4%; margin-top: 1.15vh; margin-bottom: 1.15vh;`}>
-                                    <p className={css`font-family: 'Lexend Deca', sans-serif; font-wight: 700; font-size: 2.66rem; color: ${COLORS.WHITE_1}; text-shadow: 1px 1px ${COLORS.BLACK_1};`}>Test</p>
-                                    <button onClick={handleServiceSelection} className={css`border-width: 0.281vh; border-color: ${COLORS.WHITE_1}; color: ${COLORS.WHITE_1}; border-radius: 10vh; border-style: solid; padding: 0.66vh 1.77vh 0.66vh 1.77vh; background-color: transparent; `}>SEE MORE</button>
+                                <MDBCol md="2" className={css`background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url("${category?.image}"); border-radius: 10vh; padding-top: 7.75%; padding-bottom: 4%; margin-top: 1.15vh; margin-bottom: 1.15vh;`}>
+                                    <p className={css`font-family: 'Lexend Deca', sans-serif; font-wight: 700; font-size: 2.66rem; color: ${COLORS.WHITE_1}; text-shadow: 1px 1px ${COLORS.BLACK_1};`}>{category?.title}</p>
+                                    <button onClick={() => handleServiceSelection(category?.id)} className={css`border-width: 0.281vh; border-color: ${COLORS.WHITE_1}; color: ${COLORS.WHITE_1}; border-radius: 10vh; border-style: solid; padding: 0.66vh 1.77vh 0.66vh 1.77vh; background-color: transparent; `}>SEE MORE</button>
                                 </MDBCol>
                                 <MDBCol md="1"/>
                             </>
@@ -43,9 +50,9 @@ const CategoriesScreen = () => {
                         return (
                             <>
                                 <MDBCol md="1"/>
-                                <MDBCol md="2" className={css`background-color: blue; border: 1px solid black; border-radius: 10vh; padding-top: 7.75%; padding-bottom: 4%; margin-top: 1.15vh; margin-bottom: 1.15vh;`}>
-                                    <p className={css`font-family: 'Lexend Deca', sans-serif; font-wight: 700; font-size: 2.66rem; color: ${COLORS.WHITE_1}; text-shadow: 1px 1px ${COLORS.BLACK_1};`}>Test</p>
-                                    <button className={css`border-width: 0.281vh; border-color: ${COLORS.WHITE_1}; color: ${COLORS.WHITE_1}; border-radius: 10vh; border-style: solid; padding: 0.66vh 1.77vh 0.66vh 1.77vh; background-color: transparent; `}>SEE MORE</button>
+                                <MDBCol md="2" className={css`background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url("${category?.image}"); border-radius: 10vh; padding-top: 7.75%; padding-bottom: 4%; margin-top: 1.15vh; margin-bottom: 1.15vh;`}>
+                                    <p className={css`font-family: 'Lexend Deca', sans-serif; font-wight: 700; font-size: 2.66rem; color: ${COLORS.WHITE_1}; text-shadow: 1px 1px ${COLORS.BLACK_1};`}>{category?.title}</p>
+                                    <button onClick={() => handleServiceSelection(category?.id)} className={css`border-width: 0.281vh; border-color: ${COLORS.WHITE_1}; color: ${COLORS.WHITE_1}; border-radius: 10vh; border-style: solid; padding: 0.66vh 1.77vh 0.66vh 1.77vh; background-color: transparent; `}>SEE MORE</button>
                                 </MDBCol>
                                 <MDBCol md="2"/>
                             </>
@@ -53,9 +60,9 @@ const CategoriesScreen = () => {
                     }
 
                     return (
-                        <MDBCol md="2" className={css`background-color: blue; border: 1px solid black; border-radius: 10vh; padding-top: 7.75%; padding-bottom: 4%; margin-top: 1.15vh; margin-bottom: 1.15vh;`}>
-                            <p className={css`font-family: 'Lexend Deca', sans-serif; font-wight: 700; font-size: 2.66rem; color: ${COLORS.WHITE_1}; text-shadow: 1px 1px ${COLORS.BLACK_1};`}>Test</p>
-                            <button className={css`border-width: 0.281vh; border-color: ${COLORS.WHITE_1}; color: ${COLORS.WHITE_1}; border-radius: 10vh; border-style: solid; padding: 0.66vh 1.77vh 0.66vh 1.77vh; background-color: transparent; `}>SEE MORE</button>
+                        <MDBCol md="2" className={css`background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url("${category?.image}"); border-radius: 10vh; padding-top: 7.75%; padding-bottom: 4%; margin-top: 1.15vh; margin-bottom: 1.15vh;`}>
+                            <p className={css`font-family: 'Lexend Deca', sans-serif; font-wight: 700; font-size: 2.66rem; color: ${COLORS.WHITE_1}; text-shadow: 1px 1px ${COLORS.BLACK_1};`}>{category?.title}</p>
+                            <button onClick={() => handleServiceSelection(category?.id)} className={css`border-width: 0.281vh; border-color: ${COLORS.WHITE_1}; color: ${COLORS.WHITE_1}; border-radius: 10vh; border-style: solid; padding: 0.66vh 1.77vh 0.66vh 1.77vh; background-color: transparent; `}>SEE MORE</button>
                         </MDBCol>
                     );
                 }
@@ -70,7 +77,7 @@ const CategoriesScreen = () => {
             <MDBCol md="12" className={css`height: 12vh; padding: 0 !important;`}>
                 <div className={css`display: flex; justify-content: space-between; background-color: ${COLORS.WHITE_1}; width: 100%; height: 100%;`}>
                     <CenterAligned>
-                        <IoReorderThree className={css`width: 7vh; height: 7vh; margin-left: 10vh;`} />
+                        <IoReorderThree onClick={() => setIsServiceSidebarVisible(true)} className={css`width: 7vh; height: 7vh; margin-left: 10vh;`} />
                     </CenterAligned>
                         <img src="/assets/img/Logo/header-logo.png" alt="kam logo"/>
                     <CenterAligned>
@@ -116,6 +123,9 @@ const CategoriesScreen = () => {
                 onClick={handleToggleLiveChat}
             />
             <ChatDialog visible={isChatDialogVisible} onClose={() => setIsChatDialogVisible(false)} />
+
+            {/* SERVICE FILTER SIDEBAR */}
+            <ServiceFilter visible={isServiceSidebarVisible} onClose={() => setIsServiceSidebarVisible(false)} />
 
             {/* FOOTER */}
             <MDBCol md="12" className={css`height: 12vh; padding: 0 !important;`}>

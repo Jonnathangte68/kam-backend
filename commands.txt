@@ -1,19 +1,22 @@
-# sail
+# DOCKER COMPOSE
 docker-compose up -d --force-recreate --renew-anon-volumes
 
-# sail up
+# SAIL START
 ./vendor/bin/sail up -d
 
-# Set up Environment variables
+# SETUP ENV
 cp .env.example .env
 
-# Install the system user
+# INSTALL USER
 ./vendor/bin/sail artisan db:seed --class=UserSeeder
 
-# Clear path
+# CLEAR
 ./vendor/bin/sail artisan route:clear
 
-# If starting a new project
+# INSTALL SEEDER AND MIGRATIONS
+php artisan migrate:fresh --seed
+
+# INSTALL DEPENDENCIES
 ./vendor/bin/sail composer require laravel/ui
 ./vendor/bin/sail artisan migrate:install
 ./vendor/bin/sail artisan ui vue --auth

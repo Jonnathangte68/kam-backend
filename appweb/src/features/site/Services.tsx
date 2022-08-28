@@ -4,37 +4,46 @@ import CenterAligned from "../../components/CenterAligned";
 import CountryPicker from "../../components/CountryPicker";
 import { IoReorderThree } from "react-icons/io5";
 import COLORS from "../../utils/colors";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import NavigationBar from "../../components/NavigationBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ChatDialog from "../../components/ChatDialog";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import ServiceFilter from "../../components/ServiceFilter";
+import { fetchServicesByCategory } from "./siteSlice";
+import _ from "lodash";
 
-const ServicesScreen = () => {
+const ServicesScreen = (props: any) => {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [isServiceSidebarVisible, setIsServiceSidebarVisible] = useState(false);
+    const services = useAppSelector((state) => state.site.services);
+    let { id } = useParams();
     const [isChatDialogVisible, setIsChatDialogVisible] = useState(false);
     
     const handleToggleLiveChat = () => {
         setIsChatDialogVisible(!isChatDialogVisible);
     };
 
-    const handleNewServiceRequest = () => {
-        navigate("/service-request", { replace: false });
+    const handleNewServiceRequest = (service_id) => {
+        navigate(`/service-request/${service_id}`, { replace: false });
     };
 
     const renderServices = () => (
         <MDBRow>
-            {[1,2,3,4,5,6,7,8,9].map(
-                (category, divIndex) => {
+            {services.map(
+                (service, divIndex) => {
 
                     return (
                         <>
                             <MDBCol md="6" className={css`margin-top: 0vh; margin-bottom: 0vh;`}>
-                                <div className={css`width: 100%; height: 82%; background-color: blue; border: 1px solid black; border-radius: 3vh; padding-top: .22%; padding-bottom: .22%; padding-left: 3.15%;`}>
-                                    <p className={css`height: 3vh; width: 66%; font-family: 'Lexend Deca', sans-serif; font-weight: 700; font-size: 2.66rem; color: ${COLORS.WHITE_1}; text-shadow: 1px 1px ${COLORS.BLACK_1}; margin-top: 1.70%; margin-bottom: 1.70%;`}>Test</p>
-                                    <p className={css`height: 3vh; width: 66%; font-family: 'Lexend Deca', sans-serif; font-weight: 400; font-size: 0.88rem; color: ${COLORS.WHITE_1}; text-shadow: 1px 1px ${COLORS.BLACK_1}; margin-top: 1.70%; margin-bottom: 3.70%;`}><br/>House cleaning service with high-quality workers, window cleaning can be included.</p>
-                                    <button onClick={handleNewServiceRequest} className={css`height: 5vh; width: 22%; color: ${COLORS.WHITE_1}; border-radius: 0.35vh; border-style: none; padding: 0.66vh 1.77vh 0.66vh 1.77vh; background-color: ${COLORS.PURPLE}; margin-top: 1.70%; margin-bottom: 1.70%;`}>Order Now</button>
+                                <div className={css`background-position: center; background-repeat: no-repeat; background-size: cover; width: 100%; height: 82%; background-image: url("${service?.image}"); border: 1px solid black; border-radius: 3vh; padding-top: .22%; padding-bottom: .22%; padding-left: 3.15%;`}>
+                                    <p className={css`height: 3vh; width: 66%; font-family: 'Lexend Deca', sans-serif; font-weight: 700; font-size: 2.66rem; color: ${COLORS.WHITE_1}; text-shadow: 1px 1px ${COLORS.BLACK_1}; margin-top: 1.70%; margin-bottom: 1.70%;`}>{service?.title}</p>
+                                    <p className={css`height: 3vh; width: 66%; font-family: 'Lexend Deca', sans-serif; font-weight: 400; font-size: 0.88rem; color: ${COLORS.WHITE_1}; text-shadow: 1px 1px ${COLORS.BLACK_1}; margin-top: 1.70%; margin-bottom: 3.70%;`}><br/>{service?.description}</p>
+                                    <button onClick={() => handleNewServiceRequest(service?.id)} className={css`height: 5vh; width: 22%; color: ${COLORS.WHITE_1}; border-radius: 0.35vh; border-style: none; padding: 0.66vh 1.77vh 0.66vh 1.77vh; background-color: ${COLORS.PURPLE}; margin-top: 1.70%; margin-bottom: 1.70%;`}>Order Now</button>
                                     <div className={css`position: relative; top: -16.95vh; left: 85%; background-color: ${COLORS.WHITE_1}; border-radius: 50%; width: 8vh; height: 8vh; text-align: center; padding-top: 3.15%; padding-bottom: 3.15%; color: ${COLORS.BLACK_1}; font-weight: bold;`}>
-                                        24€/h
+                                        {service?.price}€/h
                                     </div>
                                 </div>
                             </MDBCol>
@@ -45,6 +54,12 @@ const ServicesScreen = () => {
         </MDBRow>
     );
 
+    useEffect(() => {
+        console.log("category search", id);
+        dispatch(fetchServicesByCategory(_.toNumber(id)));
+    }, []);
+    
+
     return (
         <MDBRow className={css`width: 100%; height: 100%; max-height: 100%; margin: 0 !important;`}>
 
@@ -52,7 +67,7 @@ const ServicesScreen = () => {
             <MDBCol md="12" className={css`height: 12vh; padding: 0 !important;`}>
                 <div className={css`display: flex; justify-content: space-between; background-color: ${COLORS.WHITE_1}; width: 100%; height: 100%;`}>
                     <CenterAligned>
-                        <IoReorderThree className={css`width: 7vh; height: 7vh; margin-left: 10vh;`} />
+                        <IoReorderThree onClick={() => setIsServiceSidebarVisible(true)} className={css`width: 7vh; height: 7vh; margin-left: 10vh;`} />
                     </CenterAligned>
                         <img src="/assets/img/Logo/header-logo.png" alt="kam logo"/>
                     <CenterAligned>
@@ -81,6 +96,9 @@ const ServicesScreen = () => {
                 <div className={css`padding-left: 10vh; padding-right: 10vh;`}>
                     {renderServices()}
                 </div>
+                {services?.length === 0 && (<div className={css`padding-left: 10vh; padding-right: 10vh; padding-top: 7.77vh; padding-bottom: 7.77vh !important; `}>
+                    <p className={css`text-align: center; font-weight: 600; font-size: 1.715rem;`}>Sorry, we don't have any services available yet!</p>
+                </div>)}
             </MDBCol>
             
             {/* CONTACT US EMAIL PHONE FOOTER BANNER */}
@@ -100,6 +118,9 @@ const ServicesScreen = () => {
                 onClick={handleToggleLiveChat}
             />
             <ChatDialog visible={isChatDialogVisible} onClose={() => setIsChatDialogVisible(false)} />
+
+            {/* SERVICE FILTER SIDEBAR */}
+            <ServiceFilter visible={isServiceSidebarVisible} onClose={() => setIsServiceSidebarVisible(false)} />
 
             {/* FOOTER */}
             <MDBCol md="12" className={css`height: 12vh; padding: 0 !important;`}>
