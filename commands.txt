@@ -10,9 +10,6 @@ chmod o+w ./storage/ -R
 # SETUP ENV
 cp .env.example .env
 
-# INSTALL USER
-./vendor/bin/sail artisan db:seed --class=UserSeeder
-
 # CLEAR
 ./vendor/bin/sail artisan route:clear
 
