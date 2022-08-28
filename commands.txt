@@ -1,6 +1,3 @@
-# DOCKER COMPOSE
-docker-compose up -d --force-recreate --renew-anon-volumes
-
 # GRANT SYSTEM ACCESS PERMISSIONS
 chmod o+w ./storage/ -R
 
