@@ -9,7 +9,7 @@ const ServiceSidebar = (props: any) => {
     }
 
     return (
-        <div className={css`overflow-y: auto; position: fixed; top: 0px; left: 0px; width: 20%; height: 100% !important; background-color: ${COLORS.GRAY_BACKGROUND};`}>
+        <div className={css`overflow-y: auto; position: fixed; z-index: 1000; top: 0px; left: 0px; width: 20%; height: 100% !important; background-color: ${COLORS.GRAY_BACKGROUND};`}>
             <div className={css`height: 5vh;`}>
                 <img onClick={props?.onClose} alt="close dialog" src="/assets/img/close-item.png" className={css`clear: both; width: 3.44vh; height: 3.44vh; float: right; margin-top: 17px; margin-right: 12px;`} />
             </div>

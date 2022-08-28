@@ -9,7 +9,7 @@ const ChatDialog = (props: any) => {
     }
 
     return (
-        <div className={css`overflow-y: auto; position: fixed; bottom: 0px; right: 0px; width: 20%; height: 40%; background-color: rgb(241, 241, 241);`}>
+        <div className={css`overflow-y: auto; position: fixed; z-index: 1000; bottom: 0px; right: 0px; width: 37%; height: 40%; background-color: rgb(241, 241, 241);`}>
             <MDBRow className={css`padding-top: 1.44vh; padding-bottom: 1.11vh; background-color: ${COLORS.BLUE_1};`}>
                 <MDBCol md="10">
                     <img alt="chat icon" src="/assets/img/chat/chats-circle.png" className={css`display: inline;`} />

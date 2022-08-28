@@ -68,9 +68,9 @@ const AboutUsScreen = () => {
             {/* OUR STORY BANNER */}
             <MDBCol md="12" className={css`padding: 0 !important;`}>
                 <img className={css`width: 100%;`} alt="tell our story kam" src="/assets/img/our-story-big-slogan.png" />
-                <div className={css`position: relative; margin-top: -50.51vh; margin-bottom: 25vh; left: 20%; right: 20%; width: 60%; background-color: transparent;`}>
+                <div className={css`position: relative; margin-top: -43.51vh; margin-bottom: 2vh; left: 20%; right: 20%; width: 60%; background-color: transparent;`}>
                     {!!displayfsavedfeedbackmessage && (
-                        <p className={css`font-size: 1.55rem; text-align: center; font-family: 'Lexend Deca', sans-serif; border-radius: 15px 30px 30px 5px; padding: 2.55vh; min-height: 5vh; width: 100%; background-color: ${COLORS.WHITE_2};`}>Thank you! We have received your feedback!</p>
+                        <p className={css`font-size: 1.55rem; text-align: center; font-family: 'Lexend Deca', sans-serif; border-radius: 15px 30px 30px 5px; padding: .10vh; min-height: 2.2vh; width: 100%; background-color: ${COLORS.WHITE_2};`}>Thank you! We have received your feedback!</p>
                     )}
                     <RegularTextInput
                         name="ogabsdggnosdio2"

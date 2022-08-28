@@ -73,7 +73,7 @@ const ServiceRequestScreen = () => {
             {/* @ts-ignore */}
             {!!serviceSelected && (<MDBCol md="12" className={css`background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url("${serviceSelected?.image}"); padding: 0px !important;`}>
                 <div className={css`width: 100%; height: 100%; text-align: center;`}>
-                    <p className={css`text-align: center; height: 3vh; font-family: 'Lexend Deca', sans-serif; font-weight: 700; font-size: 2.66rem; color: ${COLORS.WHITE_1}; text-shadow: 1px 1px ${COLORS.BLACK_1}; margin-top: 3.70%; margin-bottom: 1.70%;`}>
+                    <p className={css`text-align: center; height: 3vh; font-family: 'Lexend Deca', sans-serif; font-weight: 700; font-size: 1.44rem; color: ${COLORS.WHITE_1}; text-shadow: 1px 1px ${COLORS.BLACK_1}; margin-top: 3.70%; margin-bottom: 1.70%;`}>
                         {/* @ts-ignore */}
                         {serviceSelected?.title}
                     </p>
