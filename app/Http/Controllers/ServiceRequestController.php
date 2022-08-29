@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class ServiceRequestController extends Controller
 {
+
+    public function index()
+    {
+        return ServiceRequest::all();
+    }
+
     public function store(Request $request)
     {
         $sr = new ServiceRequest;

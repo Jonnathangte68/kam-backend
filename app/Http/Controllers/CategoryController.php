@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CategoryController extends Controller
 {
@@ -35,7 +36,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $sc = new Category;
+        $sc->title = $request->input("title");
+        $sc->image = $request->input("image");
+        $sc->order = $request->input("order");
+        return $sc->save();
     }
 
     /**
@@ -69,7 +74,13 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        Log::info("on update");
+        Log::info($request->input("title"));
+        $sc = Category::find($request->input("id"));
+        $sc->title = $request->input("title");
+        $sc->image = $request->input("image");
+        $sc->order = $request->input("order");
+        return $sc->save();
     }
 
     /**

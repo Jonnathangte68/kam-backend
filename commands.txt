@@ -8,10 +8,13 @@ chmod o+w ./storage/ -R
 cp .env.example .env
 
 # CLEAR
+./vendor/bin/sail artisan key:generate
 ./vendor/bin/sail artisan route:clear
+./vendor/bin/sail artisan config:clear
+./vendor/bin/sail artisan config:cache
 
 # INSTALL SEEDER AND MIGRATIONS
-php artisan migrate:fresh --seed
+./vendor/bin/sail artisan migrate:fresh --seed
 
 # INSTALL DEPENDENCIES
 ./vendor/bin/sail composer require laravel/ui

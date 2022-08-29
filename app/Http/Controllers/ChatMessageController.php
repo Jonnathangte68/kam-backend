@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ChatMessage;
+use App\Models\ChatThread;
 use Illuminate\Http\Request;
 
 class ChatMessageController extends Controller
@@ -35,7 +36,30 @@ class ChatMessageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->input("thread")) {
+            
+            // New message on thread
+
+            $thread = ChatThread::find($request->input("thread"));
+
+            $msg = new ChatMessage;
+            $msg->message = $request->input("message");
+            $msg->seen = false;
+
+            return $thread->messages()->save($msg);
+            
+        } else {
+            // Open new thread and save message
+
+            $thread = new ChatThread;
+            $thread->save();
+
+            $msg = new ChatMessage;
+            $msg->message = $request->input("message");
+            $msg->seen = false;
+
+            return $thread->messages()->save($msg);
+        }
     }
 
     /**
@@ -44,9 +68,9 @@ class ChatMessageController extends Controller
      * @param  \App\Models\ChatMessage  $chatMessage
      * @return \Illuminate\Http\Response
      */
-    public function show(ChatMessage $chatMessage)
+    public function show(int $chatMessage)
     {
-        //
+        return ChatThread::find($chatMessage)->messages()->get();
     }
 
     /**

@@ -14,7 +14,7 @@ class ContactFormSubmissionController extends Controller
      */
     public function index()
     {
-        //
+        return ContactFormSubmission::all();
     }
 
     /**

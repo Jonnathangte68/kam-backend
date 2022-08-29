@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Subategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SubategoryController extends Controller
 {
@@ -14,7 +15,7 @@ class SubategoryController extends Controller
      */
     public function index()
     {
-        //
+        return Subategory::with('category')->get();
     }
 
     /**
@@ -35,7 +36,12 @@ class SubategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $sc = new Subategory;
+        $sc->title = $request->input("title");
+        $sc->image = $request->input("image");
+        $sc->order = $request->input("order");
+        $sc->category_id = $request->input("category");
+        return $sc->save();
     }
 
     /**
@@ -69,7 +75,14 @@ class SubategoryController extends Controller
      */
     public function update(Request $request, Subategory $subategory)
     {
-        //
+        Log::info("on update");
+        Log::info($request->input("title"));
+        $sc = Subategory::find($request->input("id"));
+        $sc->title = $request->input("title");
+        $sc->image = $request->input("image");
+        $sc->order = $request->input("order");
+        $sc->category_id = $request->input("category");
+        return $sc->save();
     }
 
     /**

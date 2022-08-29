@@ -7,6 +7,10 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ServiceRequestController;
 use App\Http\Controllers\FeedbackItemController;
 use App\Http\Controllers\ContactFormSubmissionController;
+use App\Http\Controllers\SubategoryController;
+use App\Http\Controllers\ChatThreadController;
+use App\Http\Controllers\ChatMessageController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +32,25 @@ Route::post('/services-request/save', [ServiceRequestController::class, 'store']
 Route::post('/feedback/save', [FeedbackItemController::class, 'store']);
 
 Route::post('/contact-submission/save', [ContactFormSubmissionController::class, 'store']);
+
+Route::post('/send-message', [ChatMessageController::class, 'store']);
+
+// Authenticate user admin only
+
+Route::get('/subcategories', [SubategoryController::class, 'index']);
+Route::get('/services', [ServiceController::class, 'index']);
+Route::get('/service-request', [ServiceRequestController::class, 'index']);
+Route::get('/contacts', [ContactFormSubmissionController::class, 'index']);
+Route::get('/threads', [ChatThreadController::class, 'index']);
+Route::get('/messages/{id}', [ChatMessageController::class, 'show']);
+
+Route::post('/category', [CategoryController::class, 'store']);
+Route::put('/category', [CategoryController::class, 'update']);
+Route::post('/subcategory', [SubategoryController::class, 'store']);
+Route::put('/subcategory', [SubategoryController::class, 'update']);
+Route::post('/services', [ServiceController::class, 'store']);
+Route::put('/services', [ServiceController::class, 'update']);
+Route::post('/message-reply', [ChatThreadController::class, 'store']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
