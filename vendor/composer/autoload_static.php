@@ -599,6 +599,7 @@ class ComposerStaticInit8c9453959c08b4c49958025acd28fc3c
         'Fruitcake\\Cors\\' => 
         array (
             0 => __DIR__ . '/..' . '/fruitcake/php-cors/src',
+            1 => __DIR__ . '/..' . '/fruitcake/laravel-cors/src',
         ),
         'Filament\\Tables\\' => 
         array (
@@ -767,6 +768,7 @@ class ComposerStaticInit8c9453959c08b4c49958025acd28fc3c
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\CategoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/CategoryController.php',
         'App\\Http\\Controllers\\CategoryTypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/CategoryTypeController.php',
+        'App\\Http\\Controllers\\ChatMessageController' => __DIR__ . '/../..' . '/app/Http/Controllers/ChatMessageController.php',
         'App\\Http\\Controllers\\ChatThreadController' => __DIR__ . '/../..' . '/app/Http/Controllers/ChatThreadController.php',
         'App\\Http\\Controllers\\ContactFormSubmissionController' => __DIR__ . '/../..' . '/app/Http/Controllers/ContactFormSubmissionController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
@@ -1080,7 +1082,10 @@ class ComposerStaticInit8c9453959c08b4c49958025acd28fc3c
         'DanHarrin\\LivewireRateLimiting\\Exceptions\\TooManyRequestsException' => __DIR__ . '/..' . '/danharrin/livewire-rate-limiting/src/Exceptions/TooManyRequestsException.php',
         'DanHarrin\\LivewireRateLimiting\\WithRateLimiting' => __DIR__ . '/..' . '/danharrin/livewire-rate-limiting/src/WithRateLimiting.php',
         'Database\\Factories\\UserFactory' => __DIR__ . '/../..' . '/database/factories/UserFactory.php',
+        'Database\\Seeders\\CategorySeeder' => __DIR__ . '/../..' . '/database/seeders/CategorySeeder.php',
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
+        'Database\\Seeders\\ServiceSeeder' => __DIR__ . '/../..' . '/database/seeders/ServiceSeeder.php',
+        'Database\\Seeders\\SubcategorySeeder' => __DIR__ . '/../..' . '/database/seeders/SubcategorySeeder.php',
         'Database\\Seeders\\UserSeeder' => __DIR__ . '/../..' . '/database/seeders/UserSeeder.php',
         'Database\\Seeders\\UsersTableSeeder' => __DIR__ . '/../..' . '/database/seeders/UsersTableSeeder.php',
         'DeepCopy\\DeepCopy' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/DeepCopy.php',
@@ -2533,7 +2538,9 @@ class ComposerStaticInit8c9453959c08b4c49958025acd28fc3c
         'Filament\\Widgets\\TableWidget' => __DIR__ . '/..' . '/filament/filament/src/Widgets/TableWidget.php',
         'Filament\\Widgets\\Widget' => __DIR__ . '/..' . '/filament/filament/src/Widgets/Widget.php',
         'Fruitcake\\Cors\\CorsService' => __DIR__ . '/..' . '/fruitcake/php-cors/src/CorsService.php',
+        'Fruitcake\\Cors\\CorsServiceProvider' => __DIR__ . '/..' . '/fruitcake/laravel-cors/src/CorsServiceProvider.php',
         'Fruitcake\\Cors\\Exceptions\\InvalidOptionException' => __DIR__ . '/..' . '/fruitcake/php-cors/src/Exceptions/InvalidOptionException.php',
+        'Fruitcake\\Cors\\HandleCors' => __DIR__ . '/..' . '/fruitcake/laravel-cors/src/HandleCors.php',
         'GrahamCampbell\\ResultType\\Error' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Error.php',
         'GrahamCampbell\\ResultType\\Result' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Result.php',
         'GrahamCampbell\\ResultType\\Success' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Success.php',
