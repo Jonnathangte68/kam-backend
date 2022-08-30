@@ -21,7 +21,7 @@ var ConfigureTables = (function() {
         $("#new_model_action_open").attr("href", "manage-model/?model_type=category");
 
             // Make a request for a user with a given ID
-            axios.get('http://localhost:8081/api/categories')
+            axios.get('http://143.244.206.222:8081/api/categories')
             .then(function (response) {
                 // handle success
                 console.log("categories response");
@@ -80,7 +80,7 @@ var ConfigureTables = (function() {
         $("#new_model_action_open").attr("href", "manage-model/?model_type=subcategory");
 
         // Make a request for a user with a given ID
-        axios.get('http://localhost:8081/api/subcategories')
+        axios.get('http://143.244.206.222:8081/api/subcategories')
         .then(function (response) {
             // handle success
             console.log("subcategories response");
@@ -144,7 +144,7 @@ var ConfigureTables = (function() {
         $("#new_model_action_open").attr("href", "manage-model/?model_type=service");
 
         // Make a request for a user with a given ID
-        axios.get('http://localhost:8081/api/services')
+        axios.get('http://143.244.206.222:8081/api/services')
         .then(function (response) {
             // handle success
             console.log("services response");
@@ -228,7 +228,7 @@ var ConfigureTables = (function() {
         $("#new_model_action_open").hide();
 
             // Make a request for a user with a given ID
-            axios.get('http://localhost:8081/api/service-request')
+            axios.get('http://143.244.206.222:8081/api/service-request')
             .then(function (response) {
                 // handle success
                 console.log("categories response");
@@ -325,7 +325,7 @@ var ConfigureTables = (function() {
         $(".card-header .border-0, h3").text("Contact Forms");
 
             // Make a request for a user with a given ID
-            axios.get('http://localhost:8081/api/contacts')
+            axios.get('http://143.244.206.222:8081/api/contacts')
             .then(function (response) {
                 // handle success
                 console.log("categories response");
@@ -409,7 +409,7 @@ var ConfigureTables = (function() {
         $(".card-header .border-0, h3").text("Messages");
 
             // Make a request for a user with a given ID
-            axios.get('http://localhost:8081/api/threads')
+            axios.get('http://143.244.206.222:8081/api/threads')
             .then(function (response) {
                 // handle success
                 console.log("categories response");
@@ -491,7 +491,7 @@ var ConfigureTables = (function() {
             $(".card-header .border-0, h3").text("Messages");
 
             // Make a request for a user with a given ID
-            axios.get(`http://localhost:8081/api/messages/${messageThreadID}`)
+            axios.get(`http://143.244.206.222:8081/api/messages/${messageThreadID}`)
             .then(function (response) {
                 // handle success
                 console.log("categories response");
@@ -543,7 +543,7 @@ var ConfigureTables = (function() {
             $("#send-message-submit-button").click(function() {
                 console.log("thread id ", messageThreadID);
 
-                axios.post('http://localhost:8081/api/message-reply', {
+                axios.post('http://143.244.206.222:8081/api/message-reply', {
                     reply: $("#exampleFormControlTextarea1dsg").val(),
                     thread: messageThreadID
                 }).then(function (response) {

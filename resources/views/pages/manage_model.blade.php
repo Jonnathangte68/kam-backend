@@ -514,7 +514,7 @@
             var categoryID = get("id");
 
             if (categoryID) {
-                axios.get('http://localhost:8081/api/categories')
+                axios.get('http://143.244.206.222:8081/api/categories')
                 .then(function (response) {
                     // handle success
 
@@ -589,7 +589,7 @@
 
                     console.log("category element to upload", categoryElement);
 
-                    axios.put('http://localhost:8081/api/category', categoryElement);
+                    axios.put('http://143.244.206.222:8081/api/category', categoryElement);
 
                     window.location.replace("/categories");
 
@@ -597,7 +597,7 @@
                 }
 
                 try {
-                    axios.post('http://localhost:8081/api/category', categoryElement)
+                    axios.post('http://143.244.206.222:8081/api/category', categoryElement)
                     .then(function (response) {
 
                         $("#title-category").val("");
@@ -642,7 +642,7 @@
 
             // Load select categories element.
 
-            axios.get('http://localhost:8081/api/categories')
+            axios.get('http://143.244.206.222:8081/api/categories')
             .then(function (response) {
                 // handle success
                 console.log("categories response");
@@ -667,7 +667,7 @@
             var subcategoryID = get("id");
 
             if (subcategoryID) {
-                axios.get('http://localhost:8081/api/subcategories')
+                axios.get('http://143.244.206.222:8081/api/subcategories')
                 .then(function (response) {
                     // handle success
 
@@ -744,7 +744,7 @@
 
                     console.log("category element to upload", subcategoryElement);
 
-                    axios.put('http://localhost:8081/api/subcategory', subcategoryElement);
+                    axios.put('http://143.244.206.222:8081/api/subcategory', subcategoryElement);
 
                     window.location.replace("/subcategories");
 
@@ -752,7 +752,7 @@
                 }
 
                 try {
-                    axios.post('http://localhost:8081/api/subcategory', subcategoryElement)
+                    axios.post('http://143.244.206.222:8081/api/subcategory', subcategoryElement)
                     .then(function (response) {
 
                         $("#title-subcategory").val("");
@@ -800,7 +800,7 @@
 
             // Load select categories element.
 
-            axios.get('http://localhost:8081/api/subcategories')
+            axios.get('http://143.244.206.222:8081/api/subcategories')
             .then(function (response) {
                 // handle success
                 console.log("sc response");
@@ -825,7 +825,7 @@
             var serviceID = get("id");
 
             if (serviceID) {
-                axios.get('http://localhost:8081/api/services')
+                axios.get('http://143.244.206.222:8081/api/services')
                 .then(function (response) {
                     // handle success
 
@@ -907,7 +907,7 @@
 
                     console.log("category element to upload", serviceElement);
 
-                    axios.put('http://localhost:8081/api/services', serviceElement);
+                    axios.put('http://143.244.206.222:8081/api/services', serviceElement);
 
                     window.location.href = "/services";
 
@@ -915,7 +915,7 @@
                 }
 
                 try {
-                    axios.post('http://localhost:8081/api/services', serviceElement)
+                    axios.post('http://143.244.206.222:8081/api/services', serviceElement)
                     .then(function (response) {
 
                         $("#title-service").val("");
