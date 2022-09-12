@@ -45,6 +45,8 @@ class ServiceController extends Controller
     {
         $sc = new Service;
         $sc->title = $request->input("title");
+        $sc->type  = $request->input("type");
+        $sc->additionalservices = json_encode($request->input("additionalservices"));
         $sc->image = $request->input("image");
         $sc->order = $request->input("order");
         $sc->description = $request->input("description");
@@ -66,6 +68,8 @@ class ServiceController extends Controller
         Log::info($request->input("title"));
         $sc = Service::find($request->input("id"));
         $sc->title = $request->input("title");
+        $sc->type  = $request->input("type");
+        $sc->additionalservices = json_encode($request->input("additionalservices"));
         $sc->image = $request->input("image");
         $sc->description = $request->input("description");
         $sc->price = $request->input("price");

@@ -32,6 +32,7 @@
   <!-- Page plugins -->
   <!-- Argon CSS -->
   <link rel="stylesheet" href="../assets/css/argon.css?v=1.2.0" type="text/css">
+  <link rel="stylesheet" href="../assets/css/bootstrap-tagsinput.css">
 </head>
 
 <body>
@@ -1189,6 +1190,7 @@
   <script src="../assets/vendor/js-cookie/js.cookie.js"></script>
   <script src="../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
   <script src="../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+  <script src="../assets/js/bootstrap-tagsinput.min.js"></script>
   <!-- Optional JS -->
   <script src="../assets/vendor/clipboard/dist/clipboard.min.js"></script>
   <!-- Argon JS -->

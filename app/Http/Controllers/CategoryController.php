@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Subategory;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -38,6 +40,7 @@ class CategoryController extends Controller
     {
         $sc = new Category;
         $sc->title = $request->input("title");
+        $sc->type = $request->input("type");
         $sc->image = $request->input("image");
         $sc->order = $request->input("order");
         return $sc->save();
@@ -78,6 +81,7 @@ class CategoryController extends Controller
         Log::info($request->input("title"));
         $sc = Category::find($request->input("id"));
         $sc->title = $request->input("title");
+        $sc->type = $request->input("type");
         $sc->image = $request->input("image");
         $sc->order = $request->input("order");
         return $sc->save();
@@ -92,5 +96,39 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //
+    }
+
+    public function getCategoriesCombined()
+    {
+        $result = [];
+        $categories = Category::all();
+        $categories = $categories->toArray();
+        foreach($categories as $category) {
+            if (!in_array($category["title"], $categories) && $category["title"]) {
+                $result[] = array("name" => $category["title"], "type" => "category");
+            }
+        }
+
+        return json_encode($result);
+
+        // $subcategories = Subategory::all();
+        // $subcategories = $subcategories->toArray();
+        // foreach($subcategories as $subcategory) {
+        //     if (!in_array($subcategory["type"], $subcategories) 
+        //         && !in_array($subcategory["type"], $categories)
+        //         && $subcategory["type"]
+        //     ) {
+        //         $result[] = array("name" => $subcategory["type"], "type" => "subcategory");
+        //     }
+        // }
+
+        // $services = Service::all();
+        // $services = $services->toArray();
+        // foreach($services as $service) {
+        //     if (!in_array($service["type"], $services) && $service["type"]) {
+        //         $result[] = array("name" => $service["type"], "type" => "service");
+        //     }
+        // }
+        // return json_encode($result);
     }
 }

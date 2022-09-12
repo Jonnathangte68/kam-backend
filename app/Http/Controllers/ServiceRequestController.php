@@ -27,6 +27,7 @@ class ServiceRequestController extends Controller
         $sr->apartment_no = $request->input("apartment_no");
         $sr->city = $request->input("city");
         $sr->message = $request->input("message");
+        $sr->additionalservices = json_encode($request->input("additionalservices"));
         return $sr->save();
     }
 }

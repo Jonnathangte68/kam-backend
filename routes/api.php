@@ -27,6 +27,8 @@ Route::get('/categories', [CategoryController::class, 'index']);
 
 Route::get('/services/{id}', [ServiceController::class, 'getByCategory']);
 
+Route::get('/types', [CategoryController::class, 'getCategoriesCombined']);
+
 Route::post('/services-request/save', [ServiceRequestController::class, 'store']);
 
 Route::post('/feedback/save', [FeedbackItemController::class, 'store']);
@@ -35,7 +37,9 @@ Route::post('/contact-submission/save', [ContactFormSubmissionController::class,
 
 Route::post('/send-message', [ChatMessageController::class, 'store']);
 
-// Authenticate user admin only
+
+
+// Authenticated user admin only
 
 Route::get('/subcategories', [SubategoryController::class, 'index']);
 Route::get('/services', [ServiceController::class, 'index']);

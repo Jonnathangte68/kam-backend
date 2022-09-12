@@ -38,6 +38,10 @@ class SubategoryController extends Controller
     {
         $sc = new Subategory;
         $sc->title = $request->input("title");
+        $sc->type  = $request->input("type");
+        $sc->description = $request->input("description");
+        $sc->additionalservices = json_encode($request->input("additionalservices"));
+        $sc->price = $request->input("price");
         $sc->image = $request->input("image");
         $sc->order = $request->input("order");
         $sc->category_id = $request->input("category");
@@ -79,6 +83,10 @@ class SubategoryController extends Controller
         Log::info($request->input("title"));
         $sc = Subategory::find($request->input("id"));
         $sc->title = $request->input("title");
+        $sc->type  = $request->input("type");
+        $sc->description = $request->input("description");
+        $sc->additionalservices = json_encode($request->input("additionalservices"));
+        $sc->price = $request->input("price");
         $sc->image = $request->input("image");
         $sc->order = $request->input("order");
         $sc->category_id = $request->input("category");

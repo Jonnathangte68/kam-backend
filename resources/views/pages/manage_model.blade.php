@@ -31,6 +31,7 @@
   <link rel="stylesheet" href="../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
   <!-- Argon CSS -->
   <link rel="stylesheet" href="../assets/css/argon.css?v=1.2.0" type="text/css">
+  <link rel="stylesheet" href="../assets/css/bootstrap-tagsinput.css">
 </head>
 
 <body>
@@ -366,6 +367,8 @@
                     <br/>
                     <input id="image-category" class="form-control" placeholder="Image" type="file">
                     <br/>
+                    <input id="type-category" value="" class="form-control" placeholder="Cleaning..." type="text" hidden>
+                    <br/>
                     <input id="order-category" class="form-control" placeholder="Order" type="text">
                     <br/><br/>
                     <input id="file-url-category" class="form-control" type="text" hidden>
@@ -381,8 +384,16 @@
                     <br/>
                     <input id="image-subcategory" class="form-control" placeholder="Image" type="file">
                     <br/>
+                    <input id="description-subcategory" class="form-control" placeholder="Description" type="text">
+                    <br/>
+                    <input id="price-subcategory" class="form-control" placeholder="Price" type="text">
+                    <br/>
+                    <input id="type-subcategory" value="" class="form-control" placeholder="Washing Floor" type="text" hidden>
+                    <br/>
                     <input id="order-subcategory" class="form-control" placeholder="Order" type="text">
                     <br/><br/>
+                    <textarea id="additionalservices-subcategory" rows="5" class="form-control" placeholder="Wiping top dust - 60 min | € 47,90"></textarea>
+                    <br/>
                     <select id="category-subcategory" class="form-control" ></select>
                     <br/><br/>
                     <input id="file-url-subcategory" class="form-control" type="text" hidden>
@@ -402,8 +413,12 @@
                     <br/>
                     <input id="price-service" class="form-control" placeholder="Price" type="text">
                     <br/>
+                    <input id="type-service" value="" class="form-control" placeholder="Cleaning Clothes" type="text" hidden>
+                    <br/>
                     <input id="order-service" class="form-control" placeholder="Order" type="text">
                     <br/><br/>
+                    <textarea id="additionalservices-service" rows="5" class="form-control" placeholder="Wiping top dust - 60 min | € 47,90"></textarea>
+                    <br/>
                     <select id="subcategory-service" class="form-control" ></select>
                     <br/><br/>
                     <input id="file-url-service" class="form-control" type="text" hidden>
@@ -425,6 +440,7 @@
   <script src="../assets/vendor/js-cookie/js.cookie.js"></script>
   <script src="../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
   <script src="../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+  <script src="../assets/js/bootstrap-tagsinput.min.js"></script>
   <!-- Argon JS -->
   <script src="../assets/js/argon.js?v=1.2.0"></script>
   <!-- Custom Format -->
@@ -514,7 +530,7 @@
             var categoryID = get("id");
 
             if (categoryID) {
-                axios.get('http://143.244.206.222:8081/api/categories')
+                axios.get('http://localhost:8081/api/categories')
                 .then(function (response) {
                     // handle success
 
@@ -522,6 +538,7 @@
                     const categoryData = response?.data?.filter(cg => cg.id == categoryID)[0];
 
                     $("#title-category").val(categoryData?.title);
+                    $("#type-category").val(categoryData?.type);
                     $("#order-category").val(categoryData?.order);
 
                 });
@@ -576,6 +593,7 @@
                 var categoryElement = {
                     title: $("#title-category").val(),
                     image: $("#file-url-category").val(),
+                    type: $("#type-category").val(),
                     order: $("#order-category").val()
                 };
 
@@ -589,7 +607,7 @@
 
                     console.log("category element to upload", categoryElement);
 
-                    axios.put('http://143.244.206.222:8081/api/category', categoryElement);
+                    axios.put('http://localhost:8081/api/category', categoryElement);
 
                     window.location.replace("/categories");
 
@@ -597,12 +615,13 @@
                 }
 
                 try {
-                    axios.post('http://143.244.206.222:8081/api/category', categoryElement)
+                    axios.post('http://localhost:8081/api/category', categoryElement)
                     .then(function (response) {
 
                         $("#title-category").val("");
                         $("#file-url-category").val("");
                         $("#order-category").val("");
+                        $("#type-category").val("");
                         $("#image-category").val("");
 
                         window.location.replace("/categories");
@@ -611,6 +630,7 @@
                     $("#title-category").val("");
                         $("#file-url-category").val("");
                         $("#order-category").val("");
+                        $("#type-category").val("");
                         $("#image-category").val("");
 
                         window.location.replace("/categories");
@@ -642,7 +662,7 @@
 
             // Load select categories element.
 
-            axios.get('http://143.244.206.222:8081/api/categories')
+            axios.get('http://localhost:8081/api/categories')
             .then(function (response) {
                 // handle success
                 console.log("categories response");
@@ -667,7 +687,7 @@
             var subcategoryID = get("id");
 
             if (subcategoryID) {
-                axios.get('http://143.244.206.222:8081/api/subcategories')
+                axios.get('http://localhost:8081/api/subcategories')
                 .then(function (response) {
                     // handle success
 
@@ -675,6 +695,10 @@
                     const subcategoryData = response?.data?.filter(cg => cg.id == subcategoryID)[0];
 
                     $("#title-subcategory").val(subcategoryData?.title);
+                    $("#type-subcategory").val(subcategoryData?.type);
+                    $("#description-subcategory").val(subcategoryData?.description);
+                    $("#additionalservices-subcategory").val(JSON.parse(subcategoryData?.additionalservices));
+                    $("#price-subcategory").val(subcategoryData?.price);
                     $("#order-subcategory").val(subcategoryData?.order);
                     $("#category-subcategory").val(subcategoryData?.category);
 
@@ -729,7 +753,11 @@
 
                 var subcategoryElement = {
                     title: $("#title-subcategory").val(),
+                    type: $("#type-subcategory").val(),
                     image: $("#file-url-subcategory").val(),
+                    additionalservices: $("#additionalservices-subcategory").val().split('\n'),
+                    description: $("#description-subcategory").val(),
+                    price: $("#price-subcategory").val(),
                     order: $("#order-subcategory").val(),
                     category: $("#category-subcategory").val()
                 };
@@ -744,7 +772,7 @@
 
                     console.log("category element to upload", subcategoryElement);
 
-                    axios.put('http://143.244.206.222:8081/api/subcategory', subcategoryElement);
+                    axios.put('http://localhost:8081/api/subcategory', subcategoryElement);
 
                     window.location.replace("/subcategories");
 
@@ -752,11 +780,15 @@
                 }
 
                 try {
-                    axios.post('http://143.244.206.222:8081/api/subcategory', subcategoryElement)
+                    axios.post('http://localhost:8081/api/subcategory', subcategoryElement)
                     .then(function (response) {
 
                         $("#title-subcategory").val("");
+                        $("#type-subcategory").val("");
                         $("#file-url-subcategory").val("");
+                        $("#additionalservices-subcategory").val("");
+                        $("#description-subcategory").val("");
+                        $("#price-subcategory").val("");
                         $("#order-subcategory").val("");
                         $("#image-subcategory").val("");
 
@@ -764,7 +796,11 @@
                     });
                 } catch(err) {
                     $("#title-subcategory").val("");
+                    $("#type-subcategory").val("");
                         $("#file-url-subcategory").val("");
+                        $("#description-subcategory").val("");
+                        $("#additionalservices-subcategory").val("");
+                        $("#price-subcategory").val("");
                         $("#order-subcategory").val("");
                         $("#image-subcategory").val("");
 
@@ -800,7 +836,7 @@
 
             // Load select categories element.
 
-            axios.get('http://143.244.206.222:8081/api/subcategories')
+            axios.get('http://localhost:8081/api/subcategories')
             .then(function (response) {
                 // handle success
                 console.log("sc response");
@@ -825,7 +861,7 @@
             var serviceID = get("id");
 
             if (serviceID) {
-                axios.get('http://143.244.206.222:8081/api/services')
+                axios.get('http://localhost:8081/api/services')
                 .then(function (response) {
                     // handle success
 
@@ -833,7 +869,9 @@
                     const serviceData = response?.data?.filter(cg => cg.id == serviceID)[0];
 
                     $("#title-service").val(serviceData?.title);
+                    $("#type-service").val(serviceData?.type);
                     $("#order-service").val(serviceData?.order);
+                    $("#additionalservices-service").val(JSON.parse(serviceData?.additionalservices));
                     $("#category-service").val(serviceData?.category);
                     $("#description-service").val(serviceData?.description);
                     $("#price-service").val(serviceData?.price);
@@ -890,7 +928,9 @@
 
                 var serviceElement = {
                     title: $("#title-service").val(),
+                    type: $("#type-service").val(),
                     image: $("#file-url-service").val(),
+                    additionalservices: $("#additionalservices-service").val().split('\n'),
                     order: $("#order-service").val(),
                     description: $("#description-service").val(),
                     price: $("#price-service").val(),
@@ -907,7 +947,7 @@
 
                     console.log("category element to upload", serviceElement);
 
-                    axios.put('http://143.244.206.222:8081/api/services', serviceElement);
+                    axios.put('http://localhost:8081/api/services', serviceElement);
 
                     window.location.href = "/services";
 
@@ -915,11 +955,13 @@
                 }
 
                 try {
-                    axios.post('http://143.244.206.222:8081/api/services', serviceElement)
+                    axios.post('http://localhost:8081/api/services', serviceElement)
                     .then(function (response) {
 
                         $("#title-service").val("");
+                        $("#type-service").val("");
                         $("#file-url-service").val("");
+                        $("#additionalservices-service").val("");
                         $("#order-service").val("");
                         $("#image-service").val("");
                         $("#description-service").val("");
