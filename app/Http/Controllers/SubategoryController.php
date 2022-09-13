@@ -99,8 +99,12 @@ class SubategoryController extends Controller
      * @param  \App\Models\Subategory  $subategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subategory $subategory)
+    public function destroy(Subategory $subategory, Request $request)
     {
-        //
+        Log::info("DEL SUB.");
+        $category = Subategory::find($request->deleteId);
+        Log::info(json_encode($category));
+        $category->services()->delete();
+        return $category->delete();
     }
 }

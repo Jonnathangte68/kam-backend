@@ -93,9 +93,17 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Category $category, Request $request)
     {
-        //
+        Log::info("DEL CAT");
+        $category = Category::find($request->deleteId);
+        Log::info(json_encode($category));
+        // $category->subategories()->services()->delete();
+        foreach ($category->subategories() as &$sbhc) {
+            $sbhc->services()->delete();
+        }
+        $category->subategories()->delete();
+        return $category->delete();
     }
 
     public function getCategoriesCombined()

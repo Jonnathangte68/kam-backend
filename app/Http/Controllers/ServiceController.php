@@ -77,4 +77,12 @@ class ServiceController extends Controller
         $sc->subategory_id = $request->input("subcategory");
         return $sc->save();
     }
+
+    public function destroy(Service $subategory, Request $request)
+    {
+        Log::info("DEL SERV.");
+        $category = Service::find($request->deleteId);
+        Log::info(json_encode($category));
+        return $category->delete();
+    }
 }

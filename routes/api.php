@@ -56,6 +56,10 @@ Route::post('/services', [ServiceController::class, 'store']);
 Route::put('/services', [ServiceController::class, 'update']);
 Route::post('/message-reply', [ChatThreadController::class, 'store']);
 
+Route::delete('/category/{id}', [CategoryController::class, 'destroy']);
+Route::delete('/subcategory/{id}', [SubategoryController::class, 'destroy']);
+Route::delete('/service/{id}', [ServiceController::class, 'destroy']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

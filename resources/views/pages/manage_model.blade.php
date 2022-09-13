@@ -372,6 +372,7 @@
                     <input id="order-category" class="form-control" placeholder="Order" type="text">
                     <br/><br/>
                     <input id="file-url-category" class="form-control" type="text" hidden>
+                    <button id="delete_category" type="button" class="btn btn-danger">Delete</button>
                     <button id="save_changes_category" type="button" class="note-color-reset btn btn-light btn-default" style="float: right; clear: both;">Save Changes</button>
                 </div>
 
@@ -397,6 +398,7 @@
                     <select id="category-subcategory" class="form-control" ></select>
                     <br/><br/>
                     <input id="file-url-subcategory" class="form-control" type="text" hidden>
+                    <button id="delete_subcategory" type="button" class="btn btn-danger">Delete</button>
                     <button id="save_changes_subcategory" type="button" class="note-color-reset btn btn-light btn-default" style="float: right; clear: both;">Save Changes</button>
                 </div>
 
@@ -422,6 +424,7 @@
                     <select id="subcategory-service" class="form-control" ></select>
                     <br/><br/>
                     <input id="file-url-service" class="form-control" type="text" hidden>
+                    <button id="delete_service" type="button" class="btn btn-danger">Delete</button>
                     <button id="save_changes_service" type="button" class="note-color-reset btn btn-light btn-default" style="float: right; clear: both;">Save Changes</button>
                 </div>
 
@@ -637,6 +640,13 @@
                 }
                 
             });
+
+            $("#delete_category").click(function() {
+              axios.delete('http://localhost:8081/api/category/'+categoryID, { data: { deleteId: categoryID } });
+              window.history.go(-1);
+              return false;
+            });
+            
         }
 
 
@@ -807,6 +817,12 @@
                         // window.location.replace("/subcategories");
                 }
                 
+            });
+
+            $("#delete_subcategory").click(function() {
+              axios.delete('http://localhost:8081/api/subcategory/'+subcategoryID, { data: { deleteId: subcategoryID } });
+              window.history.go(-1);
+              return false;
             });
 
 
@@ -981,6 +997,12 @@
                     //     window.location.replace("/services");
                 }
                 
+            });
+
+            $("#delete_service").click(function() {
+              axios.delete('http://localhost:8081/api/service/'+serviceID, { data: { deleteId: serviceID } });
+              window.history.go(-1);
+              return false;
             });
 
 
